@@ -97,7 +97,7 @@ html.sidebar-hidden ._1enh {
 
 /* Hide settings icon */
 ._30yy._2fug._p {
-	display: none !important;
+	visibility: hidden !important;
 }
 
 /* Hide title */
