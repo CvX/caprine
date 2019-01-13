@@ -16,7 +16,7 @@ function showSettingsMenu() {
 }
 
 function selectMenuItem(itemNumber) {
-	const selector = document.querySelector(`._54nq._2i-c._558b._2n_z li:nth-child(${itemNumber}) a`);
+	const selector = document.querySelector(`.uiLayer:not(.hidden_elem) ._54nq._2i-c._558b._2n_z li:nth-child(${itemNumber}) a`);
 	selector.click();
 }
 
