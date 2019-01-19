@@ -11,8 +11,26 @@ const conversationSelector = '._4u-c._1wfr > ._5f0v.uiScrollableArea';
 const selectedConversationSelector = '._5l-3._1ht1._1ht2';
 const preferencesSelector = '._10._4ebx.uiLayer._4-hy';
 
-async function showSettingsMenu() {
+async function withSettingsMenu(callback) {
+	const {classList} = document.documentElement;
+
+	// Prevent the dropdown menu from displaying
+	classList.add('hide-dropdowns');
+
+	// Click the Settings icon
 	(await elementReady('._30yy._2fug._p')).click();
+
+	// Wait for the menu to close before removing the 'hide-dropdowns' class
+	const menuLayer = document.querySelector('.uiContextualLayerPositioner:not(.hidden_elem)');
+	const observer = new MutationObserver(() => {
+		if (menuLayer.classList.contains('hidden_elem')) {
+			classList.remove('hide-dropdowns');
+			observer.disconnect();
+		}
+	});
+	observer.observe(menuLayer, {attributes: true, attributeFilter: ['class']});
+
+	await callback();
 }
 
 function selectMenuItem(itemNumber) {
@@ -24,10 +42,9 @@ async function selectOtherListViews(itemNumber) {
 	// In case one of other views is shown
 	clickBackButton();
 
-	// Create the menu for the below
-	await showSettingsMenu();
-
-	selectMenuItem(itemNumber);
+	await withSettingsMenu(() => {
+		selectMenuItem(itemNumber);
+	});
 }
 
 function clickBackButton() {
@@ -59,9 +76,10 @@ ipc.on('log-out', async () => {
 			nodes[nodes.length - 1].click();
 		}, 250);
 	} else {
-		await showSettingsMenu();
-		const nodes = document.querySelectorAll('._54nq._2i-c._558b._2n_z li:last-child a');
-		nodes[nodes.length - 1].click();
+		await withSettingsMenu(() => {
+			const nodes = document.querySelectorAll('._54nq._2i-c._558b._2n_z li:last-child a');
+			nodes[nodes.length - 1].click();
+		});
 	}
 });
 
@@ -331,10 +349,9 @@ function openDeleteModal() {
 }
 
 async function openPreferences() {
-	// Create the menu for the below
-	await showSettingsMenu();
-
-	selectMenuItem(1);
+	await withSettingsMenu(() => {
+		selectMenuItem(1);
+	});
 }
 
 function isPreferencesOpen() {
