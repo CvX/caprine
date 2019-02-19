@@ -51,7 +51,7 @@ if (!config.get('hardwareAcceleration')) {
 	app.disableHardwareAcceleration();
 }
 
-if (!is.development) {
+if (!is.development || is.development) {
 	log.transports.file.level = 'info';
 	autoUpdater.logger = log;
 
@@ -60,6 +60,14 @@ if (!is.development) {
 		autoUpdater.checkForUpdates();
 	}, FOUR_HOURS);
 
+	autoUpdater.on('download-progress', () => {
+		setTimeout(() => sendBackgroundAction('setUpdateInfo', 'download-progress'), 2000);
+	});
+	autoUpdater.on('update-downloaded', () => {
+		setTimeout(() => sendBackgroundAction('setUpdateInfo', 'update-downloaded'), 2000);
+	});
+
+	setTimeout(() => sendBackgroundAction('setUpdateInfo', 'update-downloaded'), 2000);
 	autoUpdater.checkForUpdates();
 }
 

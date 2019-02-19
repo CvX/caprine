@@ -565,3 +565,32 @@ ipc.on('notification-reply-callback', (_event: ElectronEvent, data: any) => {
 	data.previousConversation = previousConversation;
 	window.postMessage({type: 'notification-reply-callback', data}, '*');
 });
+
+const updateStatusMessages = {
+	'download-progress': 'Updating…',
+	'update-downloaded': 'Update ready'
+};
+
+ipc.on(
+	'setUpdateInfo',
+	(_event: ElectronEvent, status: 'download-progress' | 'update-downloaded') => {
+		let updateMessage = document.querySelector<HTMLDivElement>('.update-message');
+
+		if (!updateMessage) {
+			const wrapper = document.createElement('div');
+			wrapper.classList.add('_1enh', '_36ic', 'update-message-wrapper');
+
+			updateMessage = document.createElement('div');
+			wrapper.append(updateMessage);
+
+			const contactListHeader = document.querySelector<HTMLElement>('._36ic')!;
+			contactListHeader.append(wrapper);
+		}
+
+		updateMessage.className = '';
+		updateMessage.classList.add('update-message');
+		updateMessage.classList.add(status);
+
+		updateMessage.innerText = updateStatusMessages[status];
+	}
+);
