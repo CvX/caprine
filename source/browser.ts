@@ -421,7 +421,7 @@ async function sendConversationList(): Promise<void> {
 		([...(await elementReady(listSelector)).children] as HTMLElement[])
 			.splice(0, 10)
 			.map(async (el: HTMLElement) => {
-				const profilePic = el.querySelector<HTMLImageElement>('._55lt img');
+				const profilePic = el.querySelector<HTMLImageElement>('._55lt img, ._7t0d img');
 				const groupPic = el.querySelector<HTMLImageElement>('._4ld- div');
 
 				// This is only for group chats
