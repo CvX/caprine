@@ -96,6 +96,12 @@ html.hide-dropdowns .uiContextualLayerPositioner {
 	height: 0 !important;
 }
 
+/* Move the profile picture to the right */
+._6-xk ._7stb, /* Profile picture */
+._6-xk ._6-xp /* `New message` button */ {
+	order: 1;
+}
+
 /* Hide title */
 ._1tqi,
 ._6-xk h1 /* (the new design) */ {
