@@ -39,10 +39,11 @@ body {
 	overflow-y: hidden !important;
 }
 
-/* Exclude `New Messages`, `Voice Call`, `Video Call` & `Conversation Info` buttons from the draggable region */
-._36ic._5l-3 ._30yy,
-._5742 ._30yy,
-._673w ._30yy {
+/* Exclude buttons on top from the draggable region */
+._36ic._5l-3 ._30yy, /* `New Message` */
+._6-xk ._6-xp, /* `New Message` (the new design) */
+._5742 ._30yy, /* Conversation buttons (obsolete?) */
+._673w ._30yy /* Conversation buttons */ {
 	-webkit-app-region: no-drag;
 	-webkit-user-drag: none;
 }
