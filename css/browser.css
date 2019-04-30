@@ -97,7 +97,8 @@ html.hide-dropdowns .uiContextualLayerPositioner {
 }
 
 /* Hide title */
-._1tqi {
+._1tqi,
+._6-xk h1 /* (the new design) */ {
 	display: none;
 }
 
