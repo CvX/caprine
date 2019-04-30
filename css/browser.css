@@ -158,7 +158,8 @@ html.hide-dropdowns .uiContextualLayerPositioner {
 }
 
 /* macOS: Move the contextual back button so it's not obstructed by the native traffic lights */
-.os-darwin ._30yy._2oc9 {
+.os-darwin ._30yy._2oc9,
+.os-darwin ._30yy._6-xf /* (the new design) */ {
 	margin-left: 65px !important;
 }
 
